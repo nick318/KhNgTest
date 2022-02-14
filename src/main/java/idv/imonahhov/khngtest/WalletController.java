@@ -71,8 +71,8 @@ public class WalletController {
         transAction.setCurrency(currency);
         transAction.setTime(System.currentTimeMillis());
 
-        source.getBalance().get(currency).subtract(request.getAmount());
-        target.getBalance().get(currency).add(request.getAmount());
+        source.getBalance().replace(currency,source.getBalance().get(currency).subtract(request.getAmount()));
+        target.getBalance().replace(currency,target.getBalance().get(currency).add(request.getAmount()));
 
         transActionRepository.save(transAction);
         walletRepository.save(source);

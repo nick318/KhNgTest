@@ -34,6 +34,7 @@ class WalletControllerTest {
 
         Wallet source = new Wallet();
         source.setId(1L);
+        // Without lazy loading currency this will put 0 as HASH of currency object. All other instance creations
         source.setBalance(new HashMap<Currency, BigDecimal>() {{
             Currency currencyEur = getCurrencyEur();
             put(currencyEur, BigDecimal.valueOf(10));
@@ -62,12 +63,15 @@ class WalletControllerTest {
         ).isEqualTo(BigDecimal.valueOf(10));
     }
 
+    private Currency currency;
     private Currency getCurrencyEur() {
-        Currency currency = new Currency();
-        currency.setId(1);
-        currency.setName("EUR");
-        currency.setSymbol("EUR");
-        currency.setRate("1");
+        if(currency == null) {
+            currency = new Currency();
+            currency.setId(1);
+            currency.setName("EUR");
+            currency.setSymbol("EUR");
+            currency.setRate("1");
+        }
         return currency;
     }
 }

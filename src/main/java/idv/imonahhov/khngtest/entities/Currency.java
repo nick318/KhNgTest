@@ -9,11 +9,9 @@ public class Currency {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @JsonIgnore
-    private
-    Integer id;
+    private Integer id;
     @Column(unique=true)
-    private
-    String symbol;
+    private String symbol;
     private String name;
     private String rate;
 
@@ -48,4 +46,10 @@ public class Currency {
     public void setRate(String rate) {
         this.rate = rate;
     }
+
+    @Override
+    public int hashCode() {
+        return symbol.hashCode();
+    }
+
 }
